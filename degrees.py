@@ -97,19 +97,19 @@ def shortest_path(source, target):
     else:
         lst = []
         parent = target
-        print(parent_map)
+        #print(parent_map)
         while parent is not None:
             # print(parent)
             (m_id, p_id) = parent_map[parent]
             if m_id is not None:
-                lst.append((m_id, p_id))
+                lst.append((m_id, parent))
                 parent = p_id
             else:
                 parent = None
         return lst
 
 def shortest_path_helper(source, target):
-    print(f"{source}:{target}")
+    #print(f"{source}:{target}")
     nxt = QueueFrontier()
     nxt.add(source)
     parent_map = {source: (None, None)}
@@ -121,7 +121,7 @@ def shortest_path_helper(source, target):
             if temp == target:
                 return parent_map
             for (m_id, p_id) in neighbors_for_person(temp):
-                if p_id!=temp:
+                if p_id!=temp and p_id not in parent_map.keys():
                     parent_map[p_id] = (m_id, temp)
                     nxt.add(p_id)
     return None
